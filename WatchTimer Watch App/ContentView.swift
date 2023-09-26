@@ -10,13 +10,23 @@ import SwiftUI
 struct TimerClockView: View {
     let totalTime: Int
     var body: some View {
-        HStack {
-            Text((totalTime / 60).description)
+        HStack(spacing: 1) {
+            if totalTime / 60 < 10 {
+                Text("0\(totalTime / 60)")
+            } else {
+                Text((totalTime / 60).description)
+            }
+           
             Text(":")
-            Text((totalTime % 60).description)
+            
+            if totalTime % 60 < 10 {
+                Text("0\(totalTime % 60)")
+            } else {
+                Text((totalTime % 60).description)
+            }
         }
+        .font(.title2)
     }
-
 }
 
 struct ContentView: View {
@@ -28,6 +38,7 @@ struct ContentView: View {
             Button{
                 // Start recording run
                 
+                vm.runTimer()
             } label: {
                 Text("Start")
             }

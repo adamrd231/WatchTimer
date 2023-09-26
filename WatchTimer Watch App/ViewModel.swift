@@ -7,8 +7,21 @@
 
 import Foundation
 
+enum TimerStates {
+    case ready
+    case isRunning
+}
+
 class ViewModel: ObservableObject {
+    var timer = Timer()
+    @Published var currentTime: Int = 0
+    @Published var timerState: TimerStates = .ready
     
-    @Published var currentTime: Int = 10
-    
+    func runTimer() {
+        if timerState == .ready {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                self.currentTime += 1
+            }
+        }
+    }
 }
